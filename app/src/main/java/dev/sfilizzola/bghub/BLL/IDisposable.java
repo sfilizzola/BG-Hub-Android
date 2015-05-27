@@ -1,4 +1,4 @@
-package dev.sfilizzola.boardgamehub.BLL;
+package dev.sfilizzola.bghub.BLL;
 
 /**
  * Created with IntelliJ IDEA.

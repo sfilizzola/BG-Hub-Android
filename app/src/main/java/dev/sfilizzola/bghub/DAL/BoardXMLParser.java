@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.sfilizzola.bghub.Entidades.BoardGame;
+import dev.sfilizzola.bghub.Entidades.SearchResult;
 
 /**
  * Created by samuel.filizzola on 10/04/2014.
@@ -19,7 +20,7 @@ public class BoardXMLParser {
     private static final String ns = null;
     private String TAG = "XMLPARSER";
 
-    public List<BoardGame> parseBusca(InputStream in) throws XmlPullParserException, IOException {
+    public List<SearchResult> parseBusca(InputStream in) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -31,17 +32,17 @@ public class BoardXMLParser {
         }
     }
 
-    private List<BoardGame> readBusca(XmlPullParser parser) throws XmlPullParserException, IOException {
+    private List<SearchResult> readBusca(XmlPullParser parser) throws XmlPullParserException, IOException {
 
-        List<BoardGame> jogos = new ArrayList<BoardGame>();
+        List<SearchResult> jogos = new ArrayList<SearchResult>();
 
-        parser.require(XmlPullParser.START_TAG, ns, "boardgames");
+        parser.require(XmlPullParser.START_TAG, ns, "itens");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
             String name = parser.getName();
-            if (name.equals("boardgame")){
+            if (name.equals("item")){
                 jogos.add(readBuscaBoardGame(parser));
             } else {
                 skip(parser);
@@ -85,10 +86,11 @@ public class BoardXMLParser {
     }
 
 
-    private BoardGame readBuscaBoardGame(XmlPullParser parser) throws XmlPullParserException, IOException {
-        parser.require(XmlPullParser.START_TAG, ns, "boardgame");
-        BoardGame oRetGame = new BoardGame();
-        oRetGame.setID(parser.getAttributeValue(0));
+    private SearchResult readBuscaBoardGame(XmlPullParser parser) throws XmlPullParserException, IOException {
+        parser.require(XmlPullParser.START_TAG, ns, "item");
+        SearchResult oRetGame = new SearchResult();
+        oRetGame.setID(parser.getAttributeValue(1));
+        oRetGame.setType(parser.getAttributeValue(0));
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
@@ -96,9 +98,9 @@ public class BoardXMLParser {
 
             String name = parser.getName();
             if (name.equals("name")){
-                oRetGame.setName(readItem(parser, "name"));
+                oRetGame.setName(parser.getAttributeValue(1));
             } else if (name.equals("yearpublished")){
-                oRetGame.setYearpublished(readItem(parser, "yearpublished"));
+                oRetGame.setYearpublished(parser.getAttributeValue(0));
             } else {
                 skip(parser);
             }

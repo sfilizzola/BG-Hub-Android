@@ -3,6 +3,8 @@ package dev.sfilizzola.bghub.DAL;
 import android.util.Log;
 
 import dev.sfilizzola.bghub.Entidades.BoardGame;
+import dev.sfilizzola.bghub.Entidades.SearchResult;
+
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -15,11 +17,12 @@ import java.util.List;
  */
 public class BoardGames extends WebResources{
     private String TAG = "DAL BOARDGAMES";
+    private String URL_BASE = "http://www.boardgamegeek.com/xmlapi2/";
 
-    public List<BoardGame> Busca (String pBusca){
-        List<BoardGame> oBusca  =  new ArrayList<BoardGame>();
+    public List<SearchResult> Busca (String pBusca){
+        List<SearchResult> oBusca  =  new ArrayList<SearchResult>();
         BoardXMLParser xml = new BoardXMLParser();
-        String URL = "http://www.boardgamegeek.com/xmlapi/search?search=" + pBusca.replace(" ", "%20");
+        String URL = URL_BASE + "search?type=boardgame,boardgameexpansion&query=" + pBusca.replace(" ", "%20");
 
         try{
             InputStream vStream  = downloadUrl(URL);
