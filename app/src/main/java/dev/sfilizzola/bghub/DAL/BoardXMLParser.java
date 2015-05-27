@@ -1,6 +1,7 @@
 package dev.sfilizzola.bghub.DAL;
 
 import android.util.Xml;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.sfilizzola.bghub.Entidades.BoardGame;
+import dev.sfilizzola.bghub.Entidades.BoardGameLink;
+import dev.sfilizzola.bghub.Entidades.HotItem;
 import dev.sfilizzola.bghub.Entidades.SearchResult;
 
 /**
@@ -32,25 +35,6 @@ public class BoardXMLParser {
         }
     }
 
-    private List<SearchResult> readBusca(XmlPullParser parser) throws XmlPullParserException, IOException {
-
-        List<SearchResult> jogos = new ArrayList<SearchResult>();
-
-        parser.require(XmlPullParser.START_TAG, ns, "itens");
-        while (parser.next() != XmlPullParser.END_TAG) {
-            if (parser.getEventType() != XmlPullParser.START_TAG) {
-                continue;
-            }
-            String name = parser.getName();
-            if (name.equals("item")){
-                jogos.add(readBuscaBoardGame(parser));
-            } else {
-                skip(parser);
-            }
-        }
-        return jogos;
-    }
-
     public BoardGame parseJogo(InputStream in) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser = Xml.newPullParser();
@@ -63,17 +47,98 @@ public class BoardXMLParser {
         }
     }
 
-    private BoardGame readJogo(XmlPullParser parser) throws XmlPullParserException, IOException {
+    public List<HotItem> parseHOT(InputStream in) throws XmlPullParserException, IOException {
+        try {
+            XmlPullParser parser = Xml.newPullParser();
+            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+            parser.setInput(in, null);
+            parser.nextTag();
+            return readHOTs(parser);
+        } finally {
+            in.close();
+        }
+    }
 
-        BoardGame jogo = new BoardGame();
+    private List<HotItem> readHOTs(XmlPullParser parser) throws XmlPullParserException, IOException {
 
-        parser.require(XmlPullParser.START_TAG, ns, "boardgames");
+        List<HotItem> jogos = new ArrayList<HotItem>();
+
+        parser.require(XmlPullParser.START_TAG, ns, "items");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
             String name = parser.getName();
-            if (name.equals("boardgame")){
+            if (name.equals("item")) {
+                jogos.add(readHOTItem(parser));
+            } else {
+                skip(parser);
+            }
+        }
+        return jogos;
+    }
+
+    private HotItem readHOTItem(XmlPullParser parser) throws XmlPullParserException, IOException {
+
+        parser.require(XmlPullParser.START_TAG, ns, "item");
+        HotItem oRetGame = new HotItem();
+        oRetGame.setId(parser.getAttributeValue(0));
+        oRetGame.setRank(Integer.parseInt(parser.getAttributeValue(1)));
+        while (parser.next() != XmlPullParser.END_TAG) {
+
+            if (parser.getEventType() != XmlPullParser.START_TAG) {
+                continue;
+            }
+
+            String name = parser.getName();
+
+            if (name.equals("name")) {
+                oRetGame.setName(parser.getAttributeValue(0));
+                parser.nextTag();
+            } else if (name.equals("thumbnail")) {
+                oRetGame.setThumbnail(parser.getAttributeValue(0));
+                parser.nextTag();
+            } else if (name.equals("yearpublished")) {
+                oRetGame.setYearpublished(parser.getAttributeValue(0));
+                parser.nextTag();
+            } else {
+                skip(parser);
+            }
+        }
+        return oRetGame;
+
+    }
+
+    private List<SearchResult> readBusca(XmlPullParser parser) throws XmlPullParserException, IOException {
+
+        List<SearchResult> jogos = new ArrayList<SearchResult>();
+
+        parser.require(XmlPullParser.START_TAG, ns, "items");
+        while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() != XmlPullParser.START_TAG) {
+                continue;
+            }
+            String name = parser.getName();
+            if (name.equals("item")) {
+                jogos.add(readBuscaBoardGame(parser));
+            } else {
+                skip(parser);
+            }
+        }
+        return jogos;
+    }
+
+    private BoardGame readJogo(XmlPullParser parser) throws XmlPullParserException, IOException {
+
+        BoardGame jogo = new BoardGame();
+
+        parser.require(XmlPullParser.START_TAG, ns, "items");
+        while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() != XmlPullParser.START_TAG) {
+                continue;
+            }
+            String name = parser.getName();
+            if (name.equals("item")) {
                 jogo = readBoardGame(parser);
             } else {
                 skip(parser);
@@ -82,9 +147,7 @@ public class BoardXMLParser {
         return jogo;
 
 
-
     }
-
 
     private SearchResult readBuscaBoardGame(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, ns, "item");
@@ -92,15 +155,19 @@ public class BoardXMLParser {
         oRetGame.setID(parser.getAttributeValue(1));
         oRetGame.setType(parser.getAttributeValue(0));
         while (parser.next() != XmlPullParser.END_TAG) {
+
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
 
             String name = parser.getName();
-            if (name.equals("name")){
+
+            if (name.equals("name")) {
                 oRetGame.setName(parser.getAttributeValue(1));
-            } else if (name.equals("yearpublished")){
+                parser.nextTag();
+            } else if (name.equals("yearpublished")) {
                 oRetGame.setYearpublished(parser.getAttributeValue(0));
+                parser.nextTag();
             } else {
                 skip(parser);
             }
@@ -109,7 +176,7 @@ public class BoardXMLParser {
     }
 
     private BoardGame readBoardGame(XmlPullParser parser) throws XmlPullParserException, IOException {
-        parser.require(XmlPullParser.START_TAG, ns, "boardgame");
+        parser.require(XmlPullParser.START_TAG, ns, "item");
         BoardGame oRetGame = new BoardGame();
         oRetGame.setID(parser.getAttributeValue(0));
         while (parser.next() != XmlPullParser.END_TAG) {
@@ -117,42 +184,33 @@ public class BoardXMLParser {
                 continue;
             }
             String name = parser.getName();
-            if (name.equals("name") && parser.getAttributeValue(0).equals("true")){
-                oRetGame.setName(readItem(parser, "name"));
-            } else if (name.equals("yearpublished")){
-                oRetGame.setYearpublished(readItem(parser, "yearpublished"));
-            } else if (name.equals("minplayers")){
-                oRetGame.setMinplayers(readItem(parser, "minplayers"));
-            } else if (name.equals("maxplayers")){
-                oRetGame.setMaxplayers(readItem(parser, "maxplayers"));
-            } else if (name.equals("playingtime")){
-                oRetGame.setPlayingtime(readItem(parser, "playingtime"));
-            } else if (name.equals("age")){
-                oRetGame.setAge(readItem(parser, "age"));
-            } else if (name.equals("description")){
+            if (name.equals("name") && parser.getAttributeValue(0).equals("primary")) {
+                oRetGame.setName(parser.getAttributeValue(2));
+                parser.nextTag();
+            } else if (name.equals("yearpublished")) {
+                oRetGame.setYearpublished(parser.getAttributeValue(0));
+                parser.nextTag();
+            } else if (name.equals("minplayers")) {
+                oRetGame.setMinplayers(parser.getAttributeValue(0));
+                parser.nextTag();
+            } else if (name.equals("maxplayers")) {
+                oRetGame.setMaxplayers(parser.getAttributeValue(0));
+                parser.nextTag();
+            } else if (name.equals("playingtime")) {
+                oRetGame.setPlayingtime(parser.getAttributeValue(0));
+                parser.nextTag();
+            } else if (name.equals("minage")) {
+                oRetGame.setAge(parser.getAttributeValue(0));
+                parser.nextTag();
+            } else if (name.equals("description")) {
                 oRetGame.setDescription(readItem(parser, "description"));
-            } else if (name.equals("thumbnail")){
+            } else if (name.equals("thumbnail")) {
                 oRetGame.setThumbnail(readItem(parser, "thumbnail"));
-            } else if (name.equals("image")){
+            } else if (name.equals("image")) {
                 oRetGame.setImage(readItem(parser, "image"));
-            } else if (name.equals("boardgamepublisher")){
-                oRetGame.addBoardgamepublisher(readItem(parser, "boardgamepublisher"));
-            } else if (name.equals("boardgamehonor")){
-                oRetGame.addBoardgamehonor(readItem(parser, "boardgamehonor"));
-            } else if (name.equals("boardgamefamily")){
-                oRetGame.addBoardgamefamily(readItem(parser, "boardgamefamily"));
-            } else if (name.equals("boardgamepodcastepisode")){
-                oRetGame.addBoardgamepodcastepisode(readItem(parser, "boardgamepodcastepisode"));
-            } else if (name.equals("boardgameversion")){
-                oRetGame.addBoardgameversion(readItem(parser, "boardgameversion"));
-            } else if (name.equals("boardgamecategory")){
-                oRetGame.addBoardgamecategory(readItem(parser, "boardgamecategory"));
-            } else if (name.equals("boardgamemechanic")){
-                oRetGame.addBoardgamemechanic(readItem(parser, "boardgamemechanic"));
-            } else if (name.equals("boardgameexpansion")){
-                oRetGame.addBoardgameexpansion(readItem(parser, "boardgameexpansion"));
-            } else if (name.equals("boardgameartist")){
-                oRetGame.addBoardgameartist(readItem(parser, "boardgameartist"));
+            } else if (name.equals("link")) {
+                oRetGame.addBoardgameLink(new BoardGameLink(parser.getAttributeValue(0), parser.getAttributeValue(1), parser.getAttributeValue(2)));
+                parser.nextTag();
             } else {
                 skip(parser);
             }

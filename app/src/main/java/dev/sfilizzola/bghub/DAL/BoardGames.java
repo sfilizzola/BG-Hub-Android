@@ -2,15 +2,16 @@ package dev.sfilizzola.bghub.DAL;
 
 import android.util.Log;
 
-import dev.sfilizzola.bghub.Entidades.BoardGame;
-import dev.sfilizzola.bghub.Entidades.SearchResult;
-
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import dev.sfilizzola.bghub.Entidades.BoardGame;
+import dev.sfilizzola.bghub.Entidades.HotItem;
+import dev.sfilizzola.bghub.Entidades.SearchResult;
 
 /**
  * Created by samuel.filizzola on 10/04/2014.
@@ -38,11 +39,27 @@ public class BoardGames extends WebResources{
     public BoardGame CarregaJogoXML (String pIDjogo){
         BoardGame oRetVal = new BoardGame();
         BoardXMLParser xml = new BoardXMLParser();
-        String URL = "http://www.boardgamegeek.com/xmlapi/boardgame/" + pIDjogo;
+        String URL = URL_BASE + "thing?type=boardgame&id=" + pIDjogo;
 
         try {
             InputStream vStream = downloadUrl(URL);
             oRetVal = xml.parseJogo(vStream);
+        }catch (XmlPullParserException e) {
+            Log.e(TAG, e.getMessage() + "Parser");
+        } catch (IOException e) {
+            Log.e(TAG, e.getMessage() + "IO");
+        }
+        return oRetVal;
+    }
+
+    public List<HotItem> Top50() {
+        List<HotItem> oRetVal = new ArrayList<HotItem>();
+        BoardXMLParser xml = new BoardXMLParser();
+        String URL = URL_BASE + "hot?type=boardgame";
+
+        try {
+            InputStream vStream = downloadUrl(URL);
+            oRetVal = xml.parseHOT(vStream);
         }catch (XmlPullParserException e) {
             Log.e(TAG, e.getMessage() + "Parser");
         } catch (IOException e) {
