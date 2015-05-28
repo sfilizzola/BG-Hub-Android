@@ -39,7 +39,7 @@ public class HotItem {
     }
 
     public String getThumbnail() {
-        return thumbnail;
+        return "http:"+thumbnail;
     }
 
     public void setThumbnail(String thumbnail) {
