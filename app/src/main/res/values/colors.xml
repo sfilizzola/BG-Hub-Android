@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <color name="bgHubPrimaryBackgroundColor">@color/md_blue_500</color>
+    <color name="bgHubSecondaryBackgroundColor">@color/md_blue_700</color>
+    <color name="bgHubColorBackgroundAccent">@color/md_yellow_600</color>
+    <color name="bgHubBackgroundColor">@color/md_grey_600</color>
+    <color name="bgHubPrimaryTextColor">@color/md_black_1000</color>
+    <color name="bgHubSecondaryTextColor">@color/md_grey_500</color>
+    <color name="bgHubToolBarTitleColor">@color/md_white_1000</color>
+
+</resources>

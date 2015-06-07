@@ -1,0 +1,59 @@
+<android.support.v7.widget.CardView
+    xmlns:bghub="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="16dp"
+    bghub:cardCornerRadius="0dp"
+    bghub:cardPreventCornerOverlap="false"
+    bghub:contentPaddingTop="16dp"
+    bghub:contentPaddingBottom="16dp"
+    bghub:contentPaddingLeft="5dp"
+    bghub:contentPaddingRight="5dp">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+    <ImageView android:id="@+id/img_hot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/placeh"
+        android:layout_marginRight="5dp"/>
+    <TextView
+        android:id="@+id/title_hot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/img_hot"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/bgHubPrimaryTextColor"
+        android:textSize="14sp"
+        android:text="Titulo" />
+
+    <TextView
+        android:id="@+id/year_hot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/img_hot"
+        android:layout_below="@+id/title_hot"
+        android:textColor="@color/bgHubSecondaryTextColor"
+        android:textSize="12sp"
+        android:text="2015" />
+
+        <TextView
+            android:id="@+id/rank_hot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/bgHubSecondaryTextColor"
+            android:textSize="8sp"
+            android:text="1º" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
