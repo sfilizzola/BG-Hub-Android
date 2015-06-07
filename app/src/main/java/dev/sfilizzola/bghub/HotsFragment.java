@@ -1,14 +1,19 @@
 package dev.sfilizzola.bghub;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +27,12 @@ import dev.sfilizzola.bghub.Entidades.HotItem;
 
 public class HotsFragment extends Fragment {
 
+    private final String LOG_TAG = getClass().getSimpleName();
     private List<HotItem> Hots;
     private RecyclerView recyclerView;
     private HotsRecyclerViewAdapter hotsRecyclerViewAdapter;
     private View mProgressView;
     private Context fragContext;
-
-    private OnFragmentInteractionListener mListener;
-
 
     public static HotsFragment newInstance() {
         HotsFragment fragment = new HotsFragment();
@@ -62,52 +65,31 @@ public class HotsFragment extends Fragment {
 
         recyclerView.setAdapter(hotsRecyclerViewAdapter);
 
-        mProgressView = view.findViewById(R.id.progress_main);
+        mProgressView = getActivity().findViewById(R.id.progress_main);
 
 
-        TestTask mTask = new TestTask();
-        mTask.execute();
+        PopulaListaHots();
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+
+
+    @Override
+    public void onResume() {
+        Log.d(LOG_TAG, "Hots OnResume is called");
+        if (Hots == null || Hots.size() == 0 ){
+            PopulaListaHots();
+        } else {
+            hotsRecyclerViewAdapter.loadNewData(Hots);
         }
+        super.onResume();
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        /*try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }*/
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+    private void PopulaListaHots() {
+        showProgress(true);
+        TestTask mTask = new TestTask();
+        mTask.execute();
     }
 
     public class TestTask  extends AsyncTask<Void, Void, Void> {
@@ -123,6 +105,40 @@ public class HotsFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             hotsRecyclerViewAdapter.loadNewData(Hots);
+           showProgress(false);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    public void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            recyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+            recyclerView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    recyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            recyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 

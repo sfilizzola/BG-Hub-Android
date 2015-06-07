@@ -24,17 +24,23 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
         switch(position){
             case 0:
                 return new HotsFragment();
+            case 1:
+                return new CollectionFragment();
+            case 2:
+                return new ProfileFragment();
         }
         return null;
     }
 
     @Override
     public int getCount() {
-        return 1;
+        return 3;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         return tabs[position];
     }
+
+
 }

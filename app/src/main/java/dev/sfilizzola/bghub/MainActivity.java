@@ -1,6 +1,7 @@
 package dev.sfilizzola.bghub;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v4.view.ViewPager;
@@ -42,6 +43,16 @@ public class MainActivity extends BaseActivity {
         mPager.setAdapter(mPagerAdapter);
 
         mTabs = (SlidingTabLayout)findViewById(R.id.tabs);
+        mTabs.setCustomTabView(R.layout.custom_tab_view, R.id.tabText);
+        mTabs.setDistributeEvenly(true);
+        mTabs.setBackgroundColor(getResources().getColor(R.color.bgHubPrimaryBackgroundColor));
+        mTabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.bgHubColorBackgroundAccent);
+            }
+        });
+
         mTabs.setViewPager(mPager);
     }
 
@@ -59,10 +70,9 @@ public class MainActivity extends BaseActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-
         if (id == R.id.menu_search) {
-            //Intent intent = new Intent(this, SearchActivity.class);
-           // startActivity(intent);
+            Intent intent = new Intent(this, SearchActivity.class);
+            startActivity(intent);
             return true;
         }
 
