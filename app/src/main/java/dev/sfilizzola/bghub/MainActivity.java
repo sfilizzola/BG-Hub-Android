@@ -15,6 +15,9 @@ import android.view.MenuItem;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 
 import dev.sfilizzola.bghub.tabs.SlidingTabLayout;
 
@@ -36,6 +39,11 @@ public class MainActivity extends BaseActivity {
         //instalacao do parse
         Parse.initialize(this, "OOjZ2IorAoNKn0MF5sxlH7vVXQhvX4E9rTcWOx2I", "WrjsMoDWEX66tu6QY85BRcCitVW3SYqkkTTsSCbw");
         ParseInstallation.getCurrentInstallation().saveInBackground();
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().addKeyword("boardgame").setGender(AdRequest.GENDER_MALE).addTestDevice("3B8E1A062F193208F97A86AA7AC42342").build();
+        //.addTestDevice("3B8E1A062F193208F97A86AA7AC42342")
+        mAdView.loadAd(adRequest);
 
         mPagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), getApplicationContext());
 
