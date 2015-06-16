@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="dev.sfilizzola.bghub.RegisterFormActivity">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true" />
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/app_bar"
+
+        android:src="@drawable/placeh" />
+
+    <EditText
+        android:id="@+id/user_fullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/photo"
+        android:layout_toEndOf="@+id/photo"
+        android:layout_toRightOf="@+id/photo"
+        android:ems="10"
+        android:hint="@string/register_full_name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/user_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_fullName"
+        android:layout_toRightOf="@+id/photo"
+        android:hint="@string/register_user_name" />
+
+    <EditText
+        android:id="@+id/user_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_login"
+        android:layout_toRightOf="@+id/photo"
+        android:hint="@string/register_user_email" />
+
+    <EditText
+        android:id="@+id/user_passwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_email"
+        android:layout_toRightOf="@+id/photo"
+        android:inputType="textPassword"
+        android:hint="@string/register_password" />
+
+    <EditText
+        android:id="@+id/user_confirm_passwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_passwd"
+        android:layout_toRightOf="@+id/photo"
+        android:inputType="textPassword"
+        android:hint="@string/register_confirm_passwd" />
+
+    <Button
+        style="?android:textAppearanceButton"
+        android:id="@+id/user_register_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/user_confirm_passwd"
+        android:text="@string/register_button" />
+</RelativeLayout>
