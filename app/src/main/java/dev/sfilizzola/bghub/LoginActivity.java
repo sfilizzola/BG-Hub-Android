@@ -8,6 +8,7 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -46,6 +47,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private View mLoginFormView;
     private Button mEmailSignInButton;
     private Button mRegisterButton;
+
+    private final String PREFS_NAME = "BGHUB_PREFS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,24 +140,34 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
-            ParseUser.logInInBackground(email, password, new LogInCallback() {
-                @Override
-                public void done(ParseUser parseUser, ParseException e) {
-                    if (e != null) {
-                        // show error
-                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                        Log.e("LOGIN_ACT", "ERRO: " + e.getMessage());
-                        showProgress(false);
-                    } else {
-                        showProgress(false);
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
-                }
-            });
+
+            LoginAttempt(email, password);
         }
+    }
+
+    private void LoginAttempt(final String userName, final String Password) {
+
+        showProgress(true);
+        ParseUser.logInInBackground(userName, Password, new LogInCallback() {
+            @Override
+            public void done(ParseUser parseUser, ParseException e) {
+                if (e != null) {
+                    // show error
+                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("LOGIN_ACT", "ERRO: " + e.getMessage());
+                    showProgress(false);
+                } else {
+                    showProgress(false);
+
+                    SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                    SharedPreferences.Editor editor = settings.edit();
+
+                    Intent intent = new Intent(LoginActivity.this, DispatchActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private boolean isPasswordValid(String password) {

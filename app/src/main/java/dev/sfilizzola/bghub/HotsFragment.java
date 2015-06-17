@@ -3,13 +3,10 @@ package dev.sfilizzola.bghub;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -58,7 +55,7 @@ public class HotsFragment extends Fragment {
 
         fragContext = getActivity().getApplicationContext();
         //recycler view
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.hot_recycler_view);
         recyclerView.setLayoutManager( new LinearLayoutManager(fragContext));
 
         hotsRecyclerViewAdapter = new HotsRecyclerViewAdapter(fragContext, new ArrayList<HotItem>());
