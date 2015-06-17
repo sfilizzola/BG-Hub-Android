@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <color name="bgHubPrimaryBackgroundColor">@color/md_teal_A700</color>
-    <color name="bgHubSecondaryBackgroundColor">@color/md_teal_A100</color>
-    <color name="bgHubColorBackgroundAccent">@color/md_teal_A700</color>
+    <color name="bgHubPrimaryBackgroundColor">@color/md_cyan_500</color>
+    <color name="bgHubSecondaryBackgroundColor">@color/md_cyan_50</color>
+    <color name="bgHubColorBackgroundAccent">@color/md_cyan_500</color>
     <color name="bgHubBackgroundColor">@color/md_white_1000</color>
     <color name="bgHubPrimaryTextColor">@color/md_black_1000</color>
     <color name="bgHubSecondaryTextColor">@color/md_grey_500</color>
