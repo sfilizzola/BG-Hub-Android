@@ -3,7 +3,10 @@
     android:id="@+id/tabContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
     android:orientation="vertical">
 
     <ImageView
@@ -14,7 +17,7 @@
 
     <TextView
         android:id="@+id/tabText"
-        android:textColor="@color/bgHubToolBarTitleColor"
+        android:textColor="@color/tab_text_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAllCaps="true"

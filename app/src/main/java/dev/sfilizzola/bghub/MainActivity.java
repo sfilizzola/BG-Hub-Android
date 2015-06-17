@@ -44,7 +44,7 @@ public class MainActivity extends BaseActivity {
         mTabs = (SlidingTabLayout)findViewById(R.id.tabs);
         mTabs.setCustomTabView(R.layout.custom_tab_view, R.id.tabText);
         mTabs.setDistributeEvenly(true);
-        mTabs.setBackgroundColor(getResources().getColor(R.color.bgHubPrimaryBackgroundColor));
+        mTabs.setBackgroundColor(getResources().getColor(R.color.bgHubSecondaryBackgroundColor));
         mTabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
