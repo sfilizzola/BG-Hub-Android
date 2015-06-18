@@ -8,4 +8,12 @@
         android:id="@+id/app_bar"
         layout="@layout/toolbar" />
 
+    <view
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/search_recycler_view"
+        android:layout_below="@id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="android.support.v7.widget.RecyclerView"/>
+
 </RelativeLayout>

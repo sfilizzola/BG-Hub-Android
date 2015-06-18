@@ -2,21 +2,42 @@ package dev.sfilizzola.bghub;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.SearchView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import dev.sfilizzola.bghub.BLL.BoardGames;
+import dev.sfilizzola.bghub.Entidades.SearchResult;
 
 
 public class SearchActivity extends BaseActivity {
 
     private SearchView mSearchView;
+    private final String LOG_TAG = SearchActivity.class.getSimpleName();
+    private List<SearchResult> Results;
+    private RecyclerView searchRecyclerView;
+    private SearchRecyclerViewAdapter searchRecyclerViewAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         activateToolbarWithHomeEnabled();
+
+        searchRecyclerView = (RecyclerView) findViewById(R.id.search_recycler_view);
+        searchRecyclerView.setLayoutManager( new LinearLayoutManager(getApplicationContext()));
+
+        searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(getApplicationContext(), new ArrayList<SearchResult>());
+
+        searchRecyclerView.setAdapter(searchRecyclerViewAdapter);
 
     }
 
@@ -33,13 +54,16 @@ public class SearchActivity extends BaseActivity {
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-
-                //finish();
+                SearchTask mTask = new SearchTask();
+                mTask.execute(s);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
+                if (s.length() == 0) {
+                    searchRecyclerViewAdapter.loadNewData(new ArrayList<SearchResult>());
+                }
                 return true;
             }
         });
@@ -63,5 +87,21 @@ public class SearchActivity extends BaseActivity {
         int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public class SearchTask extends AsyncTask<String, Void, Void>
+    {
+        @Override
+        protected Void doInBackground(String... params) {
+            BoardGames BLL = new BoardGames();
+            Results = BLL.Busca(params[0]);
+            BLL.Dispose();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            searchRecyclerViewAdapter.loadNewData(Results);
+        }
     }
 }

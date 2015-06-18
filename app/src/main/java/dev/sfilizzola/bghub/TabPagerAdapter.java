@@ -23,7 +23,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
         super(fm);
         mContext = context;
         tabs = context.getResources().getStringArray(R.array.tabs);
-        icons = new int[]{R.drawable.ic_whatshot_white_24dp,R.drawable.ic_whatshot_white_24dp, R.drawable.ic_person_pin_white_24dp};
+        icons = new int[]{R.drawable.ic_tab_hots,R.drawable.ic_tab_collection, R.drawable.ic_tab_profile};
     }
 
     @Override
