@@ -4,8 +4,13 @@
     tools:context="dev.sfilizzola.bghub.MainActivity">
 
     <item android:id="@+id/menu_search"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@drawable/ic_magnify"
         android:title="@string/action_search"
         android:orderInCategory="1"
+        bghub:showAsAction="always"/>
+    <item android:id="@+id/menu_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="2"
         bghub:showAsAction="always"/>
 </menu>
