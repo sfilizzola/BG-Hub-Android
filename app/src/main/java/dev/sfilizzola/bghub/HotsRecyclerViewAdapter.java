@@ -51,6 +51,8 @@ public class HotsRecyclerViewAdapter extends RecyclerView.Adapter<HotsItemHolder
         hotsItemHolder.rank_hot.setText(hotItem.getRank()+"");
     }
 
+
+
     @Override
     public int getItemCount() {
         return (Hots != null ? Hots.size() : 0);
