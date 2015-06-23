@@ -49,6 +49,7 @@ public class HotsRecyclerViewAdapter extends RecyclerView.Adapter<HotsItemHolder
         hotsItemHolder.title_hot.setText(hotItem.getName());
         hotsItemHolder.year_hot.setText(hotItem.getYearpublished());
         hotsItemHolder.rank_hot.setText(hotItem.getRank()+"");
+        hotsItemHolder.IDBoardgame = hotItem.getId();
     }
 
 

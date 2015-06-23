@@ -38,6 +38,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchResult
 
         searchHolder.title_search.setText(item.getName());
         searchHolder.subtitle_search.setText(item.getType());
+        searchHolder.IDBoardgame = item.getID();
 
     }
 
