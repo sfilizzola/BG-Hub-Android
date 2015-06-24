@@ -35,8 +35,9 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                 return new CollectionFragment();
             case 2:
                 return new ProfileFragment();
+            default:
+                return new HotsFragment();
         }
-        return null;
     }
 
     @Override

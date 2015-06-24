@@ -1,12 +1,62 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="dev.sfilizzola.bghub.GameActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/toolbar" />
 
+    <RelativeLayout
+        android:id="@+id/game_full_layout"
+        android:layout_width="fill_parent"
+        android:layout_below="@+id/app_bar"
+        android:layout_height="fill_parent">
+
+        <ProgressBar
+            android:id="@+id/game_progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/game_header"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/bgHubColorBackgroundAccent">
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/game_cover"/>
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/placeh"
+            android:layout_below="@+id/game_header"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/game_cover_thumb"/>
+
+        <ScrollView
+            android:id="@+id/game_scroll_description"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/game_header"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@+id/game_cover_thumb">
+
+            <TextView
+                android:id="@+id/game_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/bgHubSecondaryTextColor" />
+        </ScrollView>
+
+    </RelativeLayout>
 </RelativeLayout>

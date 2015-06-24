@@ -89,7 +89,7 @@ public class BoardGame {
     }
 
     public String getThumbnail() {
-        return thumbnail;
+        return "http:"+thumbnail;
     }
 
     public void setThumbnail(String thumbnail) {
@@ -97,7 +97,7 @@ public class BoardGame {
     }
 
     public String getImage() {
-        return image;
+        return "http:" + image;
     }
 
     public void setImage(String image) {

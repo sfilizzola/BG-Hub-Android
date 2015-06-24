@@ -1,7 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bghub="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="dev.sfilizzola.bghub.GameActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_search"
+        bghub:showAsAction="always"
+        android:icon="@drawable/ic_magnify"
+        android:orderInCategory="1"
+        android:title="@string/action_search" />
 </menu>

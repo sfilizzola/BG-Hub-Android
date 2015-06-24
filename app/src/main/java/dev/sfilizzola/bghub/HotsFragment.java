@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +63,21 @@ public class HotsFragment extends Fragment {
         hotsRecyclerViewAdapter = new HotsRecyclerViewAdapter(fragContext, new ArrayList<HotItem>());
 
         recyclerView.setAdapter(hotsRecyclerViewAdapter);
+        recyclerView.addOnItemTouchListener(new HotItemClickListener(fragContext, recyclerView, new HotItemClickListener.OnItemCLickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(fragContext, "Normal Tap", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(fragContext, GameActivity.class );
+                intent.putExtra("IDBGG", hotsRecyclerViewAdapter.getHotItem(position).getId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(fragContext, "Long Tap", Toast.LENGTH_SHORT).show();
+            }
+        }));
+
 
         mProgressView = getActivity().findViewById(R.id.progress_main);
 
