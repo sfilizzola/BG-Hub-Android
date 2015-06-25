@@ -66,7 +66,7 @@ public class HotsFragment extends Fragment {
         recyclerView.addOnItemTouchListener(new HotItemClickListener(fragContext, recyclerView, new HotItemClickListener.OnItemCLickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(fragContext, "Normal Tap", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(fragContext, GameActivity.class );
                 intent.putExtra("IDBGG", hotsRecyclerViewAdapter.getHotItem(position).getId());
                 startActivity(intent);

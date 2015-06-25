@@ -14,7 +14,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import dev.sfilizzola.bghub.BLL.BoardGames;
@@ -27,8 +29,11 @@ public class GameActivity extends BaseActivity {
     private View mGameFormView;
     private RelativeLayout mGameHeader;
     private TextView mGameDiscription;
+    private TextView mGameTitle;
     private ImageView mGameCover;
     private ImageView mGameThumb;
+    private FloatingActionButton mAddGameCollection;
+    private FloatingActionButton mAddGameWannaPlay;
 
     //variaveis da classe
     private BoardGame JogoSelecionado;
@@ -47,11 +52,30 @@ public class GameActivity extends BaseActivity {
         mGameFormView = findViewById(R.id.game_full_layout);
         mProgressView = findViewById(R.id.game_progress);
         mGameHeader = (RelativeLayout)findViewById(R.id.game_header);
+        mGameTitle = (TextView)findViewById(R.id.game_title);
         mGameDiscription = (TextView)findViewById(R.id.game_description);
         mGameCover = (ImageView) findViewById(R.id.game_cover);
         mGameThumb = (ImageView) findViewById(R.id.game_cover_thumb);
 
+        mAddGameCollection = (FloatingActionButton) findViewById(R.id.game_add_collection);
+        mAddGameWannaPlay = (FloatingActionButton) findViewById(R.id.game_add_wannaPlay);
+
         IDJogoSelecionado = getIntent().getStringExtra("IDBGG");
+
+        //açoes dos botoes
+        mAddGameCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Adiciona coleção" + IDJogoSelecionado, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mAddGameWannaPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Adiciona quero Jogar" + IDJogoSelecionado, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         showProgress(true);
         GameLoaderTask mTask = new GameLoaderTask();
@@ -70,6 +94,7 @@ public class GameActivity extends BaseActivity {
 
         CarregaImagens(JogoSelecionado.getImage(), JogoSelecionado.getThumbnail());
         toolbar.setTitle(JogoSelecionado.getName());
+        mGameTitle.setText(JogoSelecionado.getName());
         mGameDiscription.setText(JogoSelecionado.getDescription());
 
     }

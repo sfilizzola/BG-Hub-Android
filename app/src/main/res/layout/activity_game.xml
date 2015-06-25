@@ -1,26 +1,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bghub="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context="dev.sfilizzola.bghub.GameActivity">
 
     <include
         android:id="@+id/app_bar"
         layout="@layout/toolbar" />
 
+    <ProgressBar
+        android:id="@+id/game_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/game_full_layout"
         android:layout_width="fill_parent"
-        android:layout_below="@+id/app_bar"
-        android:layout_height="fill_parent">
-
-        <ProgressBar
-            android:id="@+id/game_progress"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone" />
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/app_bar">
 
         <RelativeLayout
             android:id="@+id/game_header"
@@ -29,27 +30,29 @@
             android:background="@color/bgHubColorBackgroundAccent">
 
             <ImageView
+                android:id="@+id/game_cover"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/game_cover"/>
+                android:layout_height="fill_parent" />
+
+
         </RelativeLayout>
 
         <ImageView
-            android:layout_margin="10dp"
+            android:id="@+id/game_cover_thumb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/placeh"
-            android:layout_below="@+id/game_header"
             android:layout_alignParentLeft="true"
-            android:id="@+id/game_cover_thumb"/>
+            android:layout_below="@+id/game_header"
+            android:layout_margin="10dp"
+            android:src="@drawable/placeh" />
+
 
         <ScrollView
             android:id="@+id/game_scroll_description"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@id/game_header"
-            android:layout_marginRight="5dp"
-            android:layout_toRightOf="@+id/game_cover_thumb">
+            android:layout_below="@id/game_cover_thumb"
+            android:layout_marginRight="5dp">
 
             <TextView
                 android:id="@+id/game_description"
@@ -57,6 +60,51 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/bgHubSecondaryTextColor" />
         </ScrollView>
+
+        <TextView
+            android:id="@+id/game_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/game_scroll_description"
+            android:layout_below="@id/game_header"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/game_cover_thumb"
+            android:gravity="center_vertical"
+            android:text="TITULO DO JOGO"
+            android:textColor="@color/bgHubPrimaryTextColor"
+            android:textSize="16sp" />
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/game_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-38dp"
+            android:layout_alignBottom="@id/game_header"
+            android:layout_centerHorizontal="true"
+            bghub:fab_addButtonColorNormal="@color/bgHubFloatingButton"
+            bghub:fab_addButtonColorPressed="@color/bgHubFloatingButtonPress"
+            bghub:fab_expandDirection="left"
+            bghub:fab_plusIconColor="@color/bgHubColorBackgroundAccent">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/game_add_collection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                bghub:fab_colorNormal="@color/bgHubFloatingButton"
+                bghub:fab_colorPressed="@color/bgHubFloatingButtonPress"
+                bghub:fab_size="mini" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/game_add_wannaPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                bghub:fab_colorNormal="@color/bgHubFloatingButton"
+                bghub:fab_colorPressed="@color/bgHubFloatingButtonPress"
+                bghub:fab_size="mini" />
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+
 
     </RelativeLayout>
 </RelativeLayout>
