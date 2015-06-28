@@ -74,12 +74,14 @@ public class HotsFragment extends Fragment {
 
             @Override
             public void onItemLongClick(View view, int position) {
-                Toast.makeText(fragContext, "Long Tap", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(fragContext, "Long Tap", Toast.LENGTH_SHORT).show();
             }
         }));
 
 
         mProgressView = getActivity().findViewById(R.id.progress_main);
+
+
 
 
         PopulaListaHots();
@@ -97,6 +99,7 @@ public class HotsFragment extends Fragment {
         } else {
             hotsRecyclerViewAdapter.loadNewData(Hots);
         }
+        //((MainActivity)getActivity()).toolbar.setTitle(getResources().getString(R.string.main_hots_title));
         super.onResume();
     }
 

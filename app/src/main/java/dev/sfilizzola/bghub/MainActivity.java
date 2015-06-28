@@ -17,7 +17,7 @@ import dev.sfilizzola.bghub.tabs.SlidingTabLayout;
 public class MainActivity extends BaseActivity {
 
     private ViewPager mPager;
-    private Toolbar toolbar;
+    protected Toolbar toolbar;
     private SlidingTabLayout mTabs;
     private TabPagerAdapter mPagerAdapter;
 

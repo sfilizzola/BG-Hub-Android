@@ -6,6 +6,10 @@
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
 
+    <string name="main_hots_title">"What´s Hot"</string>
+    <string name="main_collection_title">My collection</string>
+    <string name="main_profile_title">Profile</string>
+
     <string-array name="tabs">
         <item>Hots</item>
         <item>Collection</item>
@@ -27,6 +31,16 @@
     <string name="register_button">Register</string>
     <string name="register_password">Password</string>
     <string name="register_confirm_passwd">Confirm Password</string>
-    <string name="title_activity_game">GameActivity</string>
+    <string name="title_activity_game">Loading Game Detail…</string>
+    <string name="game_detail_number_of_players">Number of Players:</string>
+    <string name="game_detail_number_of_players_string">%1$s - %2$s players</string>
+    <string name="game_detail_designers">Designers:</string>
+    <string name="game_detail_playing_time">Playing Time:</string>
+    <string name="game_detail_playing_time_string">%1$s minutes</string>
+    <string name="game_detail_artists">Artists:</string>
+    <string name="game_detail_publishers">Publishers:</string>
+    <string name="game_detail_description">Description:</string>
+    <string name="game_detail_not_available">Not available.</string>
+
 
 </resources>

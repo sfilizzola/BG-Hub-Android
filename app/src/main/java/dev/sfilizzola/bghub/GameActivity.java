@@ -3,10 +3,14 @@ package dev.sfilizzola.bghub;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,8 +23,11 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import dev.sfilizzola.bghub.BLL.BoardGames;
 import dev.sfilizzola.bghub.Entidades.BoardGame;
+import dev.sfilizzola.bghub.Entidades.BoardGameLink;
 
 public class GameActivity extends BaseActivity {
 
@@ -29,9 +36,15 @@ public class GameActivity extends BaseActivity {
     private View mGameFormView;
     private RelativeLayout mGameHeader;
     private TextView mGameDiscription;
+    private TextView mGameNumPlayers;
+    private TextView mGameArtists;
+    private TextView mGamePublishers;
+    private TextView mGameDesigners;
+    private TextView mGamePlayingTime;
     private TextView mGameTitle;
     private ImageView mGameCover;
     private ImageView mGameThumb;
+
     private FloatingActionButton mAddGameCollection;
     private FloatingActionButton mAddGameWannaPlay;
 
@@ -56,6 +69,12 @@ public class GameActivity extends BaseActivity {
         mGameDiscription = (TextView)findViewById(R.id.game_description);
         mGameCover = (ImageView) findViewById(R.id.game_cover);
         mGameThumb = (ImageView) findViewById(R.id.game_cover_thumb);
+
+        mGameNumPlayers = (TextView) findViewById(R.id.game_text_number_of_players);
+        mGameArtists = (TextView) findViewById(R.id.game_text_artists);
+        mGamePublishers = (TextView) findViewById(R.id.game_text_publishers);
+        mGameDesigners = (TextView) findViewById(R.id.game_text_designers);
+        mGamePlayingTime = (TextView) findViewById(R.id.game_text_playing_time);
 
         mAddGameCollection = (FloatingActionButton) findViewById(R.id.game_add_collection);
         mAddGameWannaPlay = (FloatingActionButton) findViewById(R.id.game_add_wannaPlay);
@@ -95,8 +114,40 @@ public class GameActivity extends BaseActivity {
         CarregaImagens(JogoSelecionado.getImage(), JogoSelecionado.getThumbnail());
         toolbar.setTitle(JogoSelecionado.getName());
         mGameTitle.setText(JogoSelecionado.getName());
-        mGameDiscription.setText(JogoSelecionado.getDescription());
+        mGameDiscription.setText(Html.fromHtml(JogoSelecionado.getDescription()));
 
+        mGameNumPlayers.setText(getResources().getString(R.string.game_detail_number_of_players_string, JogoSelecionado.getMinplayers(), JogoSelecionado.getMaxplayers()));
+        mGameArtists.setText(GenerateStringFromLinks(JogoSelecionado.getLinks(), "boardgameartist"));
+        mGamePublishers.setText(GenerateStringFromLinks(JogoSelecionado.getLinks(), "boardgamepublisher"));
+        mGameDesigners.setText(GenerateStringFromLinks(JogoSelecionado.getLinks(), "boardgamedesigner"));
+        mGamePlayingTime.setText(getResources().getString(R.string.game_detail_playing_time_string, JogoSelecionado.getPlayingtime()));
+        /*
+        CATEGORIAS EXISTENTES
+        type="boardgamecategory"
+        type="boardgamemechanic"
+        type="boardgamefamily"
+        type="boardgameexpansion"
+        type="boardgamedesigner"
+        type="boardgameartist"
+        type="boardgamepublisher"
+         */
+
+    }
+
+    private String GenerateStringFromLinks(List<BoardGameLink> links, String category)
+    {
+        String retorno = "";
+        for (BoardGameLink link : links){
+            if (link.getType().equals(category)){
+                if (retorno.isEmpty())
+                    retorno = link.getName();
+                else
+                    retorno = retorno + ", " + link.getName();
+            }
+        }
+        if (retorno.isEmpty())
+            retorno = getResources().getString(R.string.game_detail_not_available);
+        return retorno;
     }
 
     private void CarregaImagens(String image, String thumb) {
@@ -119,11 +170,16 @@ public class GameActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+               finish();
+                return true;
+            case R.id.menu_search:
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+                return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
