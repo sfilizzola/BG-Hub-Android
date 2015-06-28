@@ -259,6 +259,7 @@
                 android:id="@+id/game_add_collection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                bghub:fab_icon="@drawable/ic_add_collection"
                 bghub:fab_colorNormal="@color/bgHubFloatingButton"
                 bghub:fab_colorPressed="@color/bgHubFloatingButtonPress"
                 bghub:fab_size="mini" />
@@ -267,6 +268,7 @@
                 android:id="@+id/game_add_wannaPlay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                bghub:fab_icon="@drawable/ic_wanna"
                 bghub:fab_colorNormal="@color/bgHubFloatingButton"
                 bghub:fab_colorPressed="@color/bgHubFloatingButtonPress"
                 bghub:fab_size="mini" />
