@@ -25,13 +25,16 @@
     <string name="register_question">Don\'t have an account ?</string>
     <string name="btn_register">Register</string>
     <string name="title_activity_register_form">Register in BG Hub</string>
+
     <string name="register_full_name">User Full name</string>
     <string name="register_user_name">User Login</string>
     <string name="register_user_email">User E-mail</string>
     <string name="register_button">Register</string>
     <string name="register_password">Password</string>
     <string name="register_confirm_passwd">Confirm Password</string>
+
     <string name="title_activity_game">Loading Game Detail…</string>
+
     <string name="game_detail_number_of_players">Number of Players:</string>
     <string name="game_detail_number_of_players_string">%1$s - %2$s players</string>
     <string name="game_detail_designers">Designers:</string>
@@ -41,6 +44,10 @@
     <string name="game_detail_publishers">Publishers:</string>
     <string name="game_detail_description">Description:</string>
     <string name="game_detail_not_available">Not available.</string>
+
+    <string name="profile_collection_title">My Collection</string>
+    <string name="profile_followers_title">Followers</string>
+    <string name="profile_following_title">Following</string>
 
 
 </resources>
