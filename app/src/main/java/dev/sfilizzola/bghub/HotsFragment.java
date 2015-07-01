@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +46,14 @@ public class HotsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(LOG_TAG, "Hots onCreate is called");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(LOG_TAG, "Hots onCreateView is called");
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_hots, container, false);
 
@@ -78,18 +80,18 @@ public class HotsFragment extends Fragment {
             }
         }));
 
-
-        mProgressView = getActivity().findViewById(R.id.progress_main);
-
-
-
+        mProgressView = view.findViewById(R.id.progress_hot);
 
         PopulaListaHots();
 
         return view;
     }
 
-
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        Log.d(LOG_TAG, "Hots onViewCreated is called");
+        super.onViewCreated(view, savedInstanceState);
+    }
 
     @Override
     public void onResume() {

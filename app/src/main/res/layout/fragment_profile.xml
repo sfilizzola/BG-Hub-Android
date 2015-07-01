@@ -8,7 +8,8 @@
     <RelativeLayout
         android:id="@+id/profile_header"
         android:layout_width="fill_parent"
-        android:layout_height="120dp">
+        android:layout_height="120dp"
+        android:background="@color/bgHubSecondaryBackgroundColor">
 
         <ImageView
             android:id="@+id/profile_picture"
@@ -43,23 +44,25 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/profile_social_numbers"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_below="@+id/profile_header">
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/profile_header"
+        android:weightSum="1">
 
         <RelativeLayout
             android:id="@+id/profile_collection"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_centerHorizontal="true">
+            android:layout_weight=".3">
 
             <TextView
                 android:id="@+id/profile_collection_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:text="@string/profile_collection_title" />
 
             <TextView
@@ -67,6 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profile_collection_title"
+                android:layout_centerHorizontal="true"
                 android:text="0" />
 
 
@@ -76,14 +80,13 @@
             android:id="@+id/profile_following"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@+id/profile_followers"
-            android:layout_toRightOf="@+id/profile_collection">
+           android:layout_weight=".4">
 
             <TextView
                 android:id="@+id/profile_following_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:text="@string/profile_following_title" />
 
             <TextView
@@ -91,6 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profile_following_title"
+                android:layout_centerHorizontal="true"
                 android:text="0" />
 
         </RelativeLayout>
@@ -99,13 +103,14 @@
             android:id="@+id/profile_followers"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerHorizontal="true">
+            android:layout_weight=".3"
+           >
 
             <TextView
                 android:id="@+id/profile_followers_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:text="@string/profile_followers_title" />
 
             <TextView
@@ -113,16 +118,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profile_followers_title"
+                android:layout_centerHorizontal="true"
                 android:text="0" />
 
 
         </RelativeLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <view xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/profile_recycler_view"
-        class="android.support.v7.widget.RecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </RelativeLayout>

@@ -30,9 +30,11 @@ public class BoardGames implements IDisposable {
         return oBoardGamesDAL.Top50();
     }
 
-
-    public void AdicionaJogo(BoardGame param) {
+    public boolean  AdicionaJogoColecao(String IDBGGJogo){
+          return true;
     }
+
+
 
     @Override
     public void Dispose() {

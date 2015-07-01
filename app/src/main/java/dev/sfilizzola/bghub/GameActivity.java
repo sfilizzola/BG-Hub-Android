@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
@@ -18,7 +16,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
@@ -85,14 +82,14 @@ public class GameActivity extends BaseActivity {
         mAddGameCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Adiciona coleção" + IDJogoSelecionado, Toast.LENGTH_SHORT).show();
+                AdicionaColecao(IDJogoSelecionado);
             }
         });
 
         mAddGameWannaPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Adiciona quero Jogar" + IDJogoSelecionado, Toast.LENGTH_SHORT).show();
+                AdicionaQueroJogar(IDJogoSelecionado);
             }
         });
 
@@ -101,6 +98,9 @@ public class GameActivity extends BaseActivity {
         mTask.execute(IDJogoSelecionado);
 
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -167,6 +167,14 @@ public class GameActivity extends BaseActivity {
                 .into(mGameThumb);
     }
 
+    private void AdicionaColecao(String IDJogoSelecionado){
+        BoardGames BLL = new BoardGames();
+        BLL.
+    }
+
+    private void AdicionaQueroJogar(String IDJogoSelecionado){
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
