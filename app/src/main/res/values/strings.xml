@@ -48,6 +48,9 @@
     <string name="profile_collection_title">My Collection</string>
     <string name="profile_followers_title">Followers</string>
     <string name="profile_following_title">Following</string>
+    <string name="game_inserted_in_collection">Game inserted in your collection!</string>
+    <string name="game_error">Error inserting game. Try Again.</string>
+    <string name="game_inserted_in_wanna_play">Game inserted in your Wanna Play List</string>
 
 
 </resources>

@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
@@ -82,14 +83,14 @@ public class GameActivity extends BaseActivity {
         mAddGameCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AdicionaColecao(IDJogoSelecionado);
+                AdicionaColecao(JogoSelecionado);
             }
         });
 
         mAddGameWannaPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AdicionaQueroJogar(IDJogoSelecionado);
+                AdicionaQueroJogar(JogoSelecionado);
             }
         });
 
@@ -167,13 +168,26 @@ public class GameActivity extends BaseActivity {
                 .into(mGameThumb);
     }
 
-    private void AdicionaColecao(String IDJogoSelecionado){
+    private void AdicionaColecao(BoardGame Jogo){
         BoardGames BLL = new BoardGames();
-        BLL.
+        if (BLL.AdicionaJogoColecao(Jogo)){
+            Toast.makeText(getApplicationContext(), getResources().getText(R.string.game_inserted_in_collection), Toast.LENGTH_SHORT).show();
+        } else
+        {
+            Toast.makeText(getApplicationContext(), getResources().getText(R.string.game_error), Toast.LENGTH_SHORT).show();
+        }
+        BLL.Dispose();
     }
 
-    private void AdicionaQueroJogar(String IDJogoSelecionado){
-
+    private void AdicionaQueroJogar(BoardGame Jogo){
+        BoardGames BLL = new BoardGames();
+        if (BLL.AdicionaQueroJogar(Jogo)){
+            Toast.makeText(getApplicationContext(), getResources().getText(R.string.game_inserted_in_wanna_play), Toast.LENGTH_SHORT).show();
+        } else
+        {
+            Toast.makeText(getApplicationContext(), getResources().getText(R.string.game_error), Toast.LENGTH_SHORT).show();
+        }
+        BLL.Dispose();
     }
 
     @Override

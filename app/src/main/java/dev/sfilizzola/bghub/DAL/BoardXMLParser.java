@@ -178,7 +178,7 @@ public class BoardXMLParser {
     private BoardGame readBoardGame(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, ns, "item");
         BoardGame oRetGame = new BoardGame();
-        oRetGame.setID(parser.getAttributeValue(0));
+        oRetGame.setID(parser.getAttributeValue(1));
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
