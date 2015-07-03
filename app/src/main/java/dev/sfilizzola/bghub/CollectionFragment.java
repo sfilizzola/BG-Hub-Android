@@ -102,7 +102,8 @@ public class CollectionFragment extends Fragment {
                         Log.d(LOG_TAG, "Carregou nada.");
                         showProgress(false);
                     } else {
-                        PreencheCollection(list);
+                        //PreencheCollection(list);
+                        Log.d(LOG_TAG, "Carregou lista de Games_User.");
                         showProgress(false);
                     }
                 } else {
@@ -116,12 +117,12 @@ public class CollectionFragment extends Fragment {
 
     private void PreencheCollection(List<ParseObject> list) {
 
-        for (ParseObject item : list){
-          /*  CollectionItem colItem = new CollectionItem();
+       /* for (ParseObject item : list){
+           CollectionItem colItem = new CollectionItem();
             ParseObject game = item.getParseObject("thisGame");
             Log.d(LOG_TAG, "Teste: " + game.get("IdBGG") + " -> " + game.get("GameName"));
-            //colItem.setID(item.get());*/
-        }
+            //colItem.setID(item.get());
+        }*/
     }
 
 
