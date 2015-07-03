@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,13 +45,13 @@ public class HotsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(LOG_TAG, "Hots onCreate is called");
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(LOG_TAG, "Hots onCreateView is called");
+
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_hots, container, false);
@@ -89,13 +88,13 @@ public class HotsFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        Log.d(LOG_TAG, "Hots onViewCreated is called");
+
         super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
     public void onResume() {
-        Log.d(LOG_TAG, "Hots OnResume is called");
+
         if (Hots == null || Hots.size() == 0 ){
             PopulaListaHots();
         } else {

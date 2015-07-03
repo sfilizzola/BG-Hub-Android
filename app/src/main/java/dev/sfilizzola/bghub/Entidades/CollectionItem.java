@@ -5,6 +5,7 @@ package dev.sfilizzola.bghub.Entidades;
  */
 public class CollectionItem {
 
+    private String ID;
     private String Name;
     private String Image;
     private String Thumbnail;
@@ -12,6 +13,14 @@ public class CollectionItem {
     private boolean WannaPlay;
 
     public CollectionItem() {
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getName() {
