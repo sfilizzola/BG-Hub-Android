@@ -17,9 +17,9 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder implements Vie
 
     public CollectionViewHolder(View view) {
         super(view);
-        this.img_collection = (ImageView) view.findViewById(R.id.img_hot);
-        this.title_collection = (TextView) view.findViewById(R.id.title_hot);
-        this.subtitle_collection = (TextView) view.findViewById(R.id.rank_hot);
+        this.img_collection = (ImageView) view.findViewById(R.id.img_collection);
+        this.title_collection = (TextView) view.findViewById(R.id.title_collection);
+        this.subtitle_collection = (TextView) view.findViewById(R.id.subtitle_collection);
     }
 
     @Override

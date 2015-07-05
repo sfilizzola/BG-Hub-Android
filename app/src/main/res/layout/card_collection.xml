@@ -39,8 +39,8 @@
             android:id="@+id/subtitle_collection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/img_collection"
-            android:layout_below="@+id/title_collection"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:textColor="@color/bgHubSecondaryTextColor"
             android:textSize="12sp"
             android:text="2015" />

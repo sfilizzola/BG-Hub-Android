@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,14 +27,15 @@ import java.util.List;
 
 import dev.sfilizzola.bghub.Entidades.CollectionItem;
 
-public class CollectionFragment extends Fragment {
+public class CollectionFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private final String LOG_TAG = getClass().getSimpleName();
-    private List<CollectionItem> Collection;
+    private List<CollectionItem> colecao;
     private RecyclerView recyclerView;
     private CollectionRecyclerViewAdapter collectionAdapter;
     private View mProgressView;
     private Context fragContext;
+    private SwipeRefreshLayout swipeLayout;
 
     public static CollectionFragment newInstance(String param1, String param2) {
         CollectionFragment fragment = new CollectionFragment();
@@ -55,7 +57,7 @@ public class CollectionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_collection, container, false);
+        View view = inflater.inflate(R.layout.fragment_collection, container, false);
 
         fragContext = getActivity().getApplicationContext();
         //recycler view
@@ -82,33 +84,40 @@ public class CollectionFragment extends Fragment {
 
         mProgressView = view.findViewById(R.id.progress_collection);
 
+        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
+
         PopulaCollection();
 
         return view;
     }
 
-    private void PopulaCollection()
-    {
+    private void PopulaCollection() {
         showProgress(true);
-
-
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Games_User");
         query.whereEqualTo("thisUser", ParseUser.getCurrentUser());
+        query.include("thisGame");// inclui a classe referenciada por esse ponteiro.
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> list, ParseException e) {
-                if (e == null){
+                if (e == null) {
                     if (list.size() == 0) {
                         //TODO Carrega celula de nenhum componente
                         Log.d(LOG_TAG, "Carregou nada.");
                         showProgress(false);
+                        if (swipeLayout.isRefreshing())
+                            swipeLayout.setRefreshing(false);
                     } else {
-                        //PreencheCollection(list);
+                        PreencheCollection(list);
                         Log.d(LOG_TAG, "Carregou lista de Games_User.");
                         showProgress(false);
+                        if (swipeLayout.isRefreshing())
+                            swipeLayout.setRefreshing(false);
                     }
                 } else {
-                    Log.d(LOG_TAG, "Deu ruim. ->" + e.getMessage() );
+                    Log.d(LOG_TAG, "Deu ruim. ->" + e.getMessage());
                     showProgress(false);
+                    if (swipeLayout.isRefreshing())
+                        swipeLayout.setRefreshing(false);
                     //TODO carrega celula de erro
                 }
             }
@@ -117,12 +126,21 @@ public class CollectionFragment extends Fragment {
 
     private void PreencheCollection(List<ParseObject> list) {
 
-       /* for (ParseObject item : list){
-           CollectionItem colItem = new CollectionItem();
+
+
+        for (ParseObject item : list) {
+            CollectionItem colItem = new CollectionItem();
             ParseObject game = item.getParseObject("thisGame");
-            Log.d(LOG_TAG, "Teste: " + game.get("IdBGG") + " -> " + game.get("GameName"));
-            //colItem.setID(item.get());
-        }*/
+            colItem.setID(game.getString("IdBGG"));
+            colItem.setName(game.getString("GameName"));
+            colItem.setImage(game.getString("PhotoUri"));
+            colItem.setThumbnail(game.getString("ThumbUri"));
+            colItem.setHaveIt(item.getBoolean("haveIt"));
+            colItem.setWannaPlay(item.getBoolean("wannaPlay"));
+
+            colecao.add(colItem);
+        }
+        collectionAdapter.loadNewData(colecao);
     }
 
 
@@ -157,5 +175,10 @@ public class CollectionFragment extends Fragment {
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             recyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        PopulaCollection();
     }
 }

@@ -11,11 +11,17 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-    <view
-        android:id="@+id/collection_recycler_view"
-        class="android.support.v7.widget.RecyclerView"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/app_bar" />
+        android:layout_height="match_parent">
+
+        <view
+            android:id="@+id/collection_recycler_view"
+            class="android.support.v7.widget.RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/app_bar" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>
